@@ -1,0 +1,388 @@
+/* ============================================================
+   Customer Review Intelligence — Minimal Structural Styles
+   ============================================================
+   These are bare-bones layout styles. All visual styling
+   (colors, fonts, shadows, animations) is left for you to
+   customize. Each component has semantic class names and
+   data-attributes for easy targeting.
+
+   Targeting Guide:
+   - .app-container         → Root wrapper
+   - header                 → Top bar with title + nav
+   - nav button[data-active]→ Active tab state
+   - .review-textarea       → Text input
+   - .submit-btn            → Analyze button
+   - .submit-btn:disabled   → Disabled / loading state
+   - .loading-state         → Spinner wrapper
+   - .spinner               → Loading spinner element
+   - .error-state           → Error message wrapper
+   - .results-section       → All output cards container
+   - .metric-card           → Sentiment & Authenticity cards
+   - .sentiment-value[data-sentiment="positive|neutral|negative"]
+   - .authenticity-value[data-risk="low|medium|high"]
+   - .confidence-bar / .confidence-fill  → Progress bars
+   - .aspect-item           → Individual aspect row
+   - .aspect-sentiment-badge[data-sentiment]
+   - .topic-badge           → Individual topic tag
+   - .summary-card          → Dataset stat card
+   - .chart-container       → Chart wrapper
+   ============================================================ */
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Layout Shell */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+nav button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+nav button[data-active="true"] {
+  background: #111827;
+  color: white;
+  border-color: #111827;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* ========================== */
+/* Analyze Review View        */
+/* ========================== */
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.review-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.review-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.submit-btn {
+  align-self: flex-start;
+  padding: 0.625rem 1.5rem;
+  background: #111827;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+}
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #e5e7eb;
+  border-top-color: #111827;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error State */
+.error-state {
+  padding: 1rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.5rem;
+  color: #dc2626;
+}
+
+/* Results Section */
+.results-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.metric-card {
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.metric-card h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+
+.confidence-bar {
+  width: 100%;
+  height: 0.5rem;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.confidence-fill {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}
+
+.authenticity-fill {
+  background: #ef4444;
+}
+
+.metric-confidence {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.confidence-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.confidence-percent {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Details Row */
+.details-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.aspects-list,
+.topics-list {
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.aspects-list h3,
+.topics-list h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+}
+
+.empty-state {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.aspect-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.aspect-item:last-child {
+  border-bottom: none;
+}
+
+.aspect-name {
+  text-transform: capitalize;
+  font-size: 0.875rem;
+}
+
+.aspect-sentiment-badge {
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.aspect-sentiment-badge[data-sentiment="positive"] {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.aspect-sentiment-badge[data-sentiment="neutral"] {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.aspect-sentiment-badge[data-sentiment="negative"] {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.topics-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.topic-badge {
+  padding: 0.375rem 0.875rem;
+  background: #eff6ff;
+  color: #1e40af;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ========================== */
+/* Dataset Insights View      */
+/* ========================== */
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.summary-card h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.summary-value {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.chart-container {
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.chart-container h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+}
+
+/* ========================== */
+/* Responsive                 */
+/* ========================== */
+
+@media (max-width: 640px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+
+  .metrics-row {
+    grid-template-columns: 1fr;
+  }
+}
