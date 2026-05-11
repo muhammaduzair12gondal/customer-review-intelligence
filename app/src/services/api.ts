@@ -2,11 +2,11 @@ import type { AnalyzeReviewRequest, AnalyzeReviewResponse } from "@/types";
 
 /**
  * API Service Module
- * Centralized place for all API calls.
+ * Centralized place for all API calls
  * Backend engineer can adjust BASE_URL and endpoints here.
  */
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export async function analyzeReview(text: string): Promise<AnalyzeReviewResponse> {
   const payload: AnalyzeReviewRequest = { text };
