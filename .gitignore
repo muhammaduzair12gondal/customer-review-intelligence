@@ -57,3 +57,7 @@ coverage/
 *.swp
 *.swo
 .DS_Store
+
+# Allow frontend lib utilities
+!app/src/lib/
+!app/src/lib/**
