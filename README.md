@@ -1,3 +1,12 @@
+---
+title: Review Intelligence
+emoji: 📊
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
+
 # Customer Review Intelligence Platform
 
 A production-ready NLP analytics platform designed to extract deep insights from customer feedback. This system combines sentiment analysis, rule-based and neural aspect extraction, fake review detection, and topic discovery in a unified, premium interface.
